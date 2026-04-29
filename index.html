@@ -61,7 +61,7 @@
 
     <div id="content">
         <div id="div-center">
-            <img id="moneta" src="moneta.png" alt="money"/>
+            <img id="moneta" src="moneta.jpg" alt="money"/>
         </div>
     </div>
 
@@ -74,8 +74,8 @@
 
     let imgMoney = document.getElementById("moneta"); 
 
-    let i=1;
-    let inc=5;
+    let i = 1;
+    let inc = 3;
 
     let btn = document.getElementById("btnLoad"); 
 
@@ -87,12 +87,24 @@
     let pcScore = 0;
 
     let partite = 5;
+    
+    let back = false;
+    
+    let ang = 90;
+    
+    let k = 0;
 
     function loadGame() {        
 
         rnd = Math.floor(Math.random()*2);
 
         num = Number(document.getElementById("num").value); 
+        
+        imgMoney.src = "moneta.jpg";
+        
+        k=0;
+        
+        back = false;
 
         if (rnd==num){ 
             
@@ -130,6 +142,8 @@
             
             rotate();
             
+            
+            
             if(rnd==num && num==1) {
        
                 if (i % 360 == 0) {
@@ -156,11 +170,17 @@
                     inc--;            
                 }
             }
+            
+            
 
             if (inc === 0) {
-                clearInterval(id);  
-                inc = 5;
+            
+                clearInterval(id);
+                  
+                inc = 3;
+                
                 i = 1;
+                
                 if (partite == 0) {
 
                     if(myScore>pcScore)
@@ -190,19 +210,37 @@
     function lancia(){
 
         imgMoney.style = "transform: rotate("+0+"deg);";
+        
         i=0;
 
     }
 
-	function rotate() {
+    function rotate() {
 
-        i+=inc;
-
-        if(i==360) i=0;
+        i+=1;
+       
+        if ( i % (90+180*k) == 0 ){
         
-        imgMoney.style = "transform: rotate("+i+"deg);";
+        	if (!back) {
+        		imgMoney.src = "moneta0.jpg";
+        		back = true;
+        	
+        	} 
+        	else {
+        		imgMoney.src = "moneta.jpg";
+        		back = false;
+        	}
+        	
+  		k++;
+        	 
+        }
+        
+        //text.innerText = "Angolo" + i +";" + k;
+       
+        
+        imgMoney.style = "transform: rotateX("+i+"deg);";
 
-	}
+    }
 
 
 
