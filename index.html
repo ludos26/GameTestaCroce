@@ -6,21 +6,28 @@
             transform: rotate(0deg); 
         }
 	
-        #content {
-            height: 400px;
+        .content {
+            height: 180px;
             display: flex;
+            width: 350px;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+        }
+        
+        #div-center {
+            display: block;
             align-items: center;
             justify-content: center;
             text-align: center;
         }
-        
-        #div-center {
-            background-color: white;
-        }
 
         header {
-            display: block;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(255, 255, 255);
+      
         }
 
         button {
@@ -36,6 +43,10 @@
             text-align: center;
         }
 
+        h2 {
+            text-align: center;
+        }
+
         label {
             font-size: 20px;
         }
@@ -44,31 +55,59 @@
             width: 250px;
             text-align: center;
         }
+        
+        #btnLoad {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-image: radial-gradient(yellow, green);
+            color: rgb(0, 0, 0);
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            border: 3px solid rgb(88, 20, 20);
+	    }
+
+        #btnLoad:hover {
+            background-image: radial-gradient(yellow 20%, green 80%);
+            color: rgb(0, 0, 0);
+        }
+
+        #subtext {
+            font-weight: bold;
+        }
       
     </style>
 </head>
 
 <body>
 
-    <h1> Gioca a Testa e Croce (5 partite) </h1>
+    <h1>Gioca a Testa e Croce</h1>
+    <h2>per 3 partite</h2>
 	
-    <header>
-        <label>Scegli Testa o Croce</label><br><br>
-        <div style="display: inline;">
-            <img src="moneta.jpg" alt="Testa">
-            <input id="radio1" name="radios" type="radio" value="1" checked/><br>
-            <img src="moneta0.jpg" alt="Croce" >
-            <input id="radio2" name="radios" type="radio" value="0"/><br><br>
-        </div> 
-        <button id="btnLoad" type="button">Lancia moneta</button><br>
-         <p id="text"></p>
+    <header> 
+        <div id="div-center">
+            <h3>Scegli Testa o Croce</h3>
+             <p id="text"></p>
+             <p id="subtext"></p>
+            <div class="content">
+                <img src="moneta.jpg" alt="Testa">
+                <input id="radio1" name="radios" type="radio" value="1" checked/><br>
+                <img src="moneta0.jpg" alt="Croce" >
+                <input id="radio2" name="radios" type="radio" value="0"/><br>
+            </div><br>
+            <div class="content">
+                <button id="btnLoad" type="button">Lancia<br>la<br>Moneta</button><br>
+                
+            </div>
+            <div class="content">
+                <img id="moneta" src="moneta.jpg" alt="money"/>
+            </div>
+        </div>
     </header>
 
-    <div id="content">
-        <div id="div-center">
-            <img id="moneta" src="moneta.jpg" alt="money"/>
-        </div>
-    </div>
 
    
     
@@ -76,13 +115,15 @@
 
     let radioSelected = document.querySelector('input[name="radios"]:checked');
 
-    let num = radioSelected.value; //Number(document.getElementById("num").value); 
+    let num = radioSelected.value; 
+
     let text = document.getElementById("text"); 
+
+    let subtext = document.getElementById("subtext"); 
 
     let imgMoney = document.getElementById("moneta"); 
 
     let i = 1;
-    let j = 1;
     let inc = 3;
 
     let btn = document.getElementById("btnLoad"); 
@@ -94,7 +135,7 @@
     let myScore = 0;
     let pcScore = 0;
 
-    let partite = 5;
+    let partite = 3;
     
     let back = false;
     
@@ -109,8 +150,6 @@
         radioSelected = document.querySelector('input[name="radios"]:checked');
 
         num = radioSelected.value;
-
-        //num = Number(document.getElementById("num").value); 
         
         imgMoney.src = "moneta.jpg";
         
@@ -122,12 +161,16 @@
             
            val = "Hai indovinato, " + ( (rnd == 1) ? "Testa" : "Croce" )
 
+           text.style.color = "green";
+
            myScore++;
             
         }
         else if(rnd<num || rnd>num){
             
            val = "Hai sbagliato, era " + ( (rnd == 1) ? "Testa" : "Croce" )
+
+           text.style.color = "red";
 
            pcScore++;
 
@@ -195,16 +238,18 @@
                 
                 if (partite == 0) {
 
+                    text.innerText = val;
+
                     if(myScore>pcScore)
 
-                        text.innerHTML = val + "<br><br>Hai vinto con punteggio: " + myScore + " contro il pc, con punteggio: " + pcScore;
+                        subtext.innerText = "Vinto! Tu " + myScore + " Vs PC " + pcScore;
 
                     else if(myScore<pcScore)
 
-                        text.innerHTML = val + "<br><br>Hai perso con punteggio: " + myScore + " contro il pc, con punteggio: " + pcScore;
+                        subtext.innerText = "Perso! Tu " + myScore + " Vs PC " + pcScore;
                 
 
-                    partite = 5
+                    partite = 3
                     
                     myScore = 0;
                     pcScore = 0;
@@ -230,8 +275,6 @@
     function rotate() {
 
         i+=inc;
-
-        //j+=1;
        
         if ( i % (90+180*k) == 0 ){
         
@@ -248,9 +291,6 @@
   		k++;
         	 
         }
-        
-        //text.innerText = "Angolo" + i +";" + k;
-       
         
         imgMoney.style = "transform: rotateX("+i+"deg);";
 
