@@ -75,6 +75,12 @@
             color: rgb(0, 0, 0);
         }
 
+        #text {
+            font-weight: bold;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 25px;
+        }
+
         #subtext {
             font-weight: bold;
             font-family: 'Times New Roman', Times, serif;
@@ -246,14 +252,17 @@
 
                     text.innerText = val;
 
-                    if(myScore>pcScore)
+                    if(myScore>pcScore) {
 
+                        subtext.style.color = "green";
                         subtext.innerText = "Vinto! Tu " + myScore + " Vs PC " + pcScore;
 
-                    else if(myScore<pcScore)
+                    } else if(myScore<pcScore){
 
+                        subtext.style.color = "red";
                         subtext.innerText = "Perso! Tu " + myScore + " Vs PC " + pcScore;
-                
+                    
+                    }
 
                     partite = 3
                     
