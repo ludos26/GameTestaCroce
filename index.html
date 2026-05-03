@@ -77,6 +77,8 @@
 
         #subtext {
             font-weight: bold;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 40px;
         }
       
     </style>
@@ -189,6 +191,7 @@
 
         subtext.innerText = "";
         
+        btn.disabled = true;
 
         loadGame();
 
@@ -236,6 +239,8 @@
                 inc = 3;
                 
                 i = 1;
+
+                btn.disabled = false;
                 
                 if (partite == 0) {
 
